@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9060"/>
-        <capability name="box content view" minToolsVersion="7.0"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -673,10 +674,10 @@
                 </menuItem>
             </items>
         </menu>
-        <window title="Mac Example" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" showsToolbarButton="NO" animationBehavior="default" id="QvC-M9-y7g">
+        <window title="Mac Example" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES"/>
             <rect key="contentRect" x="335" y="390" width="400" height="368"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="2537"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <view key="contentView" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="400" height="368"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -689,21 +690,19 @@
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="400" id="Z1K-eP-EFI"/>
                             <constraint firstAttribute="width" constant="400" id="srN-Ty-yYG"/>
                         </constraints>
-                        <animations/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="armchair" id="cpa-BH-nca"/>
                     </imageView>
                     <box autoresizesSubviews="NO" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="0Gb-KD-yfU">
-                        <rect key="frame" x="17" y="250" width="366" height="100"/>
+                        <rect key="frame" x="17" y="228" width="366" height="122"/>
                         <view key="contentView" id="bbk-jP-boF">
-                            <rect key="frame" x="1" y="1" width="364" height="98"/>
+                            <rect key="frame" x="3" y="3" width="360" height="116"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YED-uj-VLq">
-                                    <rect key="frame" x="16" y="29" width="332" height="81"/>
+                                    <rect key="frame" x="14" y="49" width="332" height="81"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="328" id="DsT-g1-qyE"/>
                                     </constraints>
-                                    <animations/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="ARMCHAIR" id="44X-yy-TzG">
                                         <font key="font" size="58" name="AmericanTypewriter-Light"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -711,7 +710,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <button wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jkm-ga-2sM">
-                                    <rect key="frame" x="63" y="8" width="85" height="32"/>
+                                    <rect key="frame" x="46" y="34" width="85" height="26"/>
                                     <contentFilters>
                                         <ciFilter name="CIColorControls">
                                             <configuration>
@@ -722,7 +721,6 @@
                                             </configuration>
                                         </ciFilter>
                                     </contentFilters>
-                                    <animations/>
                                     <buttonCell key="cell" type="bevel" title="Standard" bezelStyle="rounded" alignment="left" imageScaling="proportionallyDown" inset="2" id="V69-cn-Kgl">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" size="18" name="AmericanTypewriter"/>
@@ -732,7 +730,7 @@
                                     </connections>
                                 </button>
                                 <button wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yGG-Wr-1xP">
-                                    <rect key="frame" x="211" y="8" width="105" height="32"/>
+                                    <rect key="frame" x="209" y="34" width="105" height="26"/>
                                     <contentFilters>
                                         <ciFilter name="CIColorControls">
                                             <configuration>
@@ -743,7 +741,6 @@
                                             </configuration>
                                         </ciFilter>
                                     </contentFilters>
-                                    <animations/>
                                     <buttonCell key="cell" type="bevel" title="Customized" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="cV4-59-VPY">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" size="18" name="AmericanTypewriter"/>
@@ -752,21 +749,41 @@
                                         <action selector="presentCustomizedPrompt:" target="g9K-Nf-HDk" id="4g2-ob-RcM"/>
                                     </connections>
                                 </button>
+                                <button wantsLayer="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pcB-pl-1dE" userLabel="Are You Happy">
+                                    <rect key="frame" x="107" y="8" width="145" height="26"/>
+                                    <contentFilters>
+                                        <ciFilter name="CIColorControls">
+                                            <configuration>
+                                                <real key="inputBrightness" value="1"/>
+                                                <real key="inputContrast" value="1"/>
+                                                <null key="inputImage"/>
+                                                <real key="inputSaturation" value="1"/>
+                                            </configuration>
+                                        </ciFilter>
+                                    </contentFilters>
+                                    <buttonCell key="cell" type="bevel" title="Are You Happy?" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="KQm-kU-p27">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" size="18" name="AmericanTypewriter"/>
+                                        <connections>
+                                            <action selector="presentAdvancedFeedbackPrompt:" target="g9K-Nf-HDk" id="wds-5s-eio"/>
+                                        </connections>
+                                    </buttonCell>
+                                </button>
                             </subviews>
-                            <animations/>
+                            <constraints>
+                                <constraint firstItem="pcB-pl-1dE" firstAttribute="centerX" secondItem="bbk-jP-boF" secondAttribute="centerX" id="cNi-H4-CzY"/>
+                                <constraint firstItem="pcB-pl-1dE" firstAttribute="bottom" secondItem="bbk-jP-boF" secondAttribute="bottom" constant="-13" id="i8s-OO-Q7E"/>
+                            </constraints>
                         </view>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="YED-uj-VLq" secondAttribute="centerX" id="D1u-uE-BYQ"/>
                             <constraint firstItem="yGG-Wr-1xP" firstAttribute="top" secondItem="YED-uj-VLq" secondAttribute="bottom" constant="-11" id="HED-pQ-Syb"/>
-                            <constraint firstItem="YED-uj-VLq" firstAttribute="leading" secondItem="jkm-ga-2sM" secondAttribute="leading" constant="-45" id="Krx-CK-vgG"/>
+                            <constraint firstItem="YED-uj-VLq" firstAttribute="leading" secondItem="jkm-ga-2sM" secondAttribute="leading" constant="-30" id="Krx-CK-vgG"/>
                             <constraint firstItem="YED-uj-VLq" firstAttribute="top" secondItem="0Gb-KD-yfU" secondAttribute="top" constant="-13" id="Yxh-EJ-Gft"/>
-                            <constraint firstAttribute="height" constant="94" id="aN9-Sz-28k"/>
+                            <constraint firstAttribute="height" constant="116" id="aN9-Sz-28k"/>
                             <constraint firstItem="yGG-Wr-1xP" firstAttribute="trailing" secondItem="YED-uj-VLq" secondAttribute="trailing" constant="-30" id="kVF-vs-OfD"/>
                             <constraint firstItem="jkm-ga-2sM" firstAttribute="bottom" secondItem="yGG-Wr-1xP" secondAttribute="bottom" id="sDl-pK-HF9"/>
                         </constraints>
-                        <animations/>
-                        <color key="borderColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="fillColor" name="textColor" catalog="System" colorSpace="catalog"/>
                     </box>
                     <button translatesAutoresizingMaskIntoConstraints="NO" id="OSk-p7-dUM">
                         <rect key="frame" x="312" y="8" width="80" height="16"/>
@@ -774,7 +791,6 @@
                             <constraint firstAttribute="height" constant="16" id="GCp-UZ-7Tt"/>
                             <constraint firstAttribute="width" constant="80" id="GXx-vv-2Cx"/>
                         </constraints>
-                        <animations/>
                         <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="logo" imagePosition="only" alignment="center" alternateImage="logo" imageScaling="proportionallyDown" inset="2" id="vhG-ei-xnV">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
@@ -784,8 +800,7 @@
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TMr-De-pos">
-                        <rect key="frame" x="147" y="229" width="106" height="17"/>
-                        <animations/>
+                        <rect key="frame" x="147" y="207" width="106" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Languange Label" id="k5m-JC-DUG">
                             <font key="font" size="12" name="AmericanTypewriter"/>
                             <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -805,7 +820,6 @@
                     <constraint firstItem="0Gb-KD-yfU" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" id="SUA-nW-p1P"/>
                     <constraint firstItem="TMr-De-pos" firstAttribute="top" secondItem="0Gb-KD-yfU" secondAttribute="bottom" constant="8" id="b8y-Oh-srw"/>
                 </constraints>
-                <animations/>
             </view>
         </window>
     </objects>

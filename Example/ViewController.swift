@@ -92,6 +92,43 @@ extension ViewController {
         Armchair.userDidSignificantEvent(true)
     }
 
+    @IBAction func presentAdvancedFeedbackPrompt(_: AnyObject) {
+        resetAppReviewManager()
+        
+        // The AppID is the only required setup
+        Armchair.appID(appID)
+        
+        // Debug means that it will popup on the next available change
+        Armchair.debugEnabled(true)
+        
+        #if os(iOS)
+        // Explicitly disable the storeKit as the default may be true if on iOS 8
+        Armchair.opensInStoreKit(false)
+        #endif
+    
+        // True means that advanced popup with "Are You Happy?" promp will popup
+        Armchair.advancedFeedbackEnabled(true)
+        
+        // You should call it with a block to circumvent any of Armchair should rate logic.
+        Armchair.onDidOptToContact({
+            print("[Example App] User wants to contact support")
+        })
+
+        // Here can be overrides the default value for advanced feedback popups
+        // Armchair.areYouHappyTitle("Some title here")
+        // Armchair.areYouHappyMessage("Some title here")
+        // Armchair.areYouHappyYesButtonTitle("Some title here")
+        // Armchair.areYouHappyNoButtonTitle("Some title here")
+        // Armchair.contactPromptTitle("Some title here")
+        // Armchair.contactPromptMessage("Some title here")
+        // Armchair.contactPromptYesButtonTitle("Some title here")
+        // Armchair.contactPromptNoButtonTitle("Some title here")
+
+
+        // true here means it is ok to show, but it doesn't matter because we have debug on.
+        Armchair.userDidSignificantEvent(true)
+    }
+
     @IBAction func presentCustomizedPrompt(_: AnyObject) {
         resetAppReviewManager()
 
@@ -210,7 +247,7 @@ extension ViewController {
         Armchair.userDidSignificantEvent(true)
     }
 #endif
-
+    
     func resetAppReviewManager() {
         Armchair.resetDefaults()
     }

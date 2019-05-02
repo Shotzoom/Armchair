@@ -115,6 +115,111 @@ public func remindButtonTitle(_ remindButtonTitle: String?) {
     Manager.defaultManager.remindButtonTitle = remindButtonTitle
 }
 
+// MARK: Advanced "Are You Happy?" promt
+
+/*
+ * 'true' will show the advanced "Are You Happy?" alert everytime instead of default alert.
+ * If user select "Yes" option then default alert will popup.
+ * If user select "No" option then one more alert with option to feedback will popup.
+ * Default => false
+ */
+public func advancedFeedbackEnabled() -> Bool {
+    return Manager.defaultManager.advancedFeedbackEnabled
+}
+public func advancedFeedbackEnabled(_ advancedFeedbackEnabled: Bool) {
+    Manager.defaultManager.advancedFeedbackEnabled = advancedFeedbackEnabled
+}
+
+/*
+ * Get/Set the title to use on the "Are You Happy" prompt.
+ * Default value is a localized "Quick Question"
+ */
+public func areYouHappyTitle() -> String {
+    return Manager.defaultManager.areYouHappyTitle
+}
+public func areYouHappyTitle(_ areYouHappyTitle: String) {
+    Manager.defaultManager.areYouHappyTitle = areYouHappyTitle
+}
+
+/*
+ * Get/Set the message to use on the "Are You Happy" prompt.
+ * Default value is a localized
+ *  "Are you happy with <appName>"
+ */
+public func areYouHappyMessage() -> String {
+    return Manager.defaultManager.areYouHappyMessage
+}
+public func areYouHappyMessage(_ areYouHappyMessage: String) {
+    Manager.defaultManager.areYouHappyMessage = areYouHappyMessage
+}
+
+/*
+ * Get/Set the confirm button title to use on the "Are You Happy" prompt.
+ * Default value is a localized "Yes"
+ */
+public func areYouHappyYesButtonTitle() -> String {
+    return Manager.defaultManager.areYouHappyYesButtonTitle
+}
+public func areYouHappyYesButtonTitle(_ areYouHappyYesButtonTitle: String) {
+    Manager.defaultManager.areYouHappyYesButtonTitle = areYouHappyYesButtonTitle
+}
+
+/*
+ * Get/Set the cancel button title to use on the "Are You Happy" prompt.
+ * Default value is a localized "No"
+ */
+public func areYouHappyNoButtonTitle() -> String {
+    return Manager.defaultManager.areYouHappyNoButtonTitle
+}
+public func areYouHappyNoButtonTitle(_ areYouHappyNoButtonTitle: String) {
+    Manager.defaultManager.areYouHappyNoButtonTitle = areYouHappyNoButtonTitle
+}
+
+/*
+ * Get/Set the title to use on the contact prompt.
+ * Default value is a localized "Talk to Us"
+ */
+public func contactPromptTitle() -> String {
+    return Manager.defaultManager.contactPromptTitle
+}
+public func contactPromptTitle(_ contactPromptTitle: String) {
+    Manager.defaultManager.contactPromptTitle = contactPromptTitle
+}
+
+/*
+ * Get/Set the message to use on the contact prompt.
+ * Default value is a localized
+ *  "Sorry to hear that. Would you like to talk to our team about it?"
+ */
+public func contactPromptMessage() -> String {
+    return Manager.defaultManager.contactPromptMessage
+}
+public func contactPromptMessage(_ contactPromptMessage: String) {
+    Manager.defaultManager.contactPromptMessage = contactPromptMessage
+}
+
+/*
+ * Get/Set the confirm button title to use on the contact prompt.
+ * Default value is a localized "Talk to us"
+ */
+public func contactPromptYesButtonTitle() -> String {
+    return Manager.defaultManager.contactPromptYesButtonTitle
+}
+public func contactPromptYesButtonTitle(_ contactPromptYesButtonTitle: String) {
+    Manager.defaultManager.contactPromptYesButtonTitle = contactPromptYesButtonTitle
+}
+
+/*
+ * Get/Set the cancel button title to use on the contact prompt.
+ * Default value is a localized "No, Thanks"
+ */
+public func contactPromptNoButtonTitle() -> String {
+    return Manager.defaultManager.contactPromptNoButtonTitle
+}
+public func contactPromptNoButtonTitle(_ contactPromptNoButtonTitle: String) {
+    Manager.defaultManager.contactPromptNoButtonTitle = contactPromptNoButtonTitle
+}
+
 /*
  * Get/Set the NSUserDefault keys that store the usage data for Armchair
  * Default values are in the form of "<appID>_Armchair<Setting>"
@@ -377,6 +482,17 @@ public func resetDefaults() {
     Manager.defaultManager.didOptToRemindLaterClosure       = nil
     
     Manager.defaultManager.customAlertClosure               = nil
+    
+    Manager.defaultManager.advancedFeedbackEnabled          = false
+    Manager.defaultManager.areYouHappyTitle                 = Manager.defaultManager.defaultAreYouHappyTitle()
+    Manager.defaultManager.areYouHappyMessage               = Manager.defaultManager.defaultAreYouHappyMessage()
+    Manager.defaultManager.areYouHappyYesButtonTitle        = Manager.defaultManager.defaultAreYouHappyYesButtonTitle()
+    Manager.defaultManager.areYouHappyNoButtonTitle         = Manager.defaultManager.defaultAreYouHappyNoButtonTitle()
+    Manager.defaultManager.contactPromptTitle               = Manager.defaultManager.defaultContactPromptTitle()
+    Manager.defaultManager.contactPromptMessage             = Manager.defaultManager.defaultContactPromptMessage()
+    Manager.defaultManager.contactPromptYesButtonTitle      = Manager.defaultManager.defaultContactPromptYesButtonTitle()
+    Manager.defaultManager.contactPromptNoButtonTitle       = Manager.defaultManager.defaultContactPromptNoButtonTitle()
+    Manager.defaultManager.didOptToContactClosure           = nil
 
 #if os(iOS)
     Manager.defaultManager.usesAnimation                    = true
@@ -614,6 +730,13 @@ public func onDidOptToRemindLater(_ didOptToRemindLaterClosure: ArmchairClosure?
 #endif
 
 /*
+ * Set a closure to left user feedback.
+ */
+public func onDidOptToContact(_ didOptToContactClosure: ArmchairClosure?) {
+    Manager.defaultManager.didOptToContactClosure = didOptToContactClosure
+}
+
+/*
  * The setShouldPromptClosure is called just after all the rating coditions
  * have been met and Armchair has decided it should display a prompt,
  * but just before the prompt actually displays.
@@ -636,8 +759,6 @@ public func shouldPromptClosure(_ shouldPromptClosure: ArmchairShouldPromptClosu
 public func shouldIncrementUseCountClosure(_ shouldIncrementUseCountClosure: ArmchairShouldIncrementClosure?) {
     Manager.defaultManager.shouldIncrementUseCountClosure = shouldIncrementUseCountClosure
 }
-
-
 
 // MARK: Armchair Logger Protocol
 public typealias ArmchairLogger = (Manager, _ log: String, _ file: StaticString, _ function: StaticString, _ line: UInt) -> Void
@@ -810,7 +931,7 @@ open class Manager : ArmchairManager {
         
         return template.replacingOccurrences(of: "%@", with: "\(self.appName)", options: NSString.CompareOptions(rawValue: 0), range: nil)
     }
-    
+
     fileprivate lazy var cancelButtonTitle: String = self.defaultCancelButtonTitle()
     fileprivate func defaultCancelButtonTitle() -> String {
         var title = "No, Thanks"
@@ -864,6 +985,104 @@ open class Manager : ArmchairManager {
         }
     }
     
+    // MARK: Advanced Feedback Alert & Properties
+
+    fileprivate lazy var areYouHappyTitle: String = self.defaultAreYouHappyTitle()
+    fileprivate func defaultAreYouHappyTitle() -> String {
+        var title = "Quick Question"
+        // Check for a localized version of the default title
+        if let bundle = self.bundle() {
+            title = bundle.localizedString(forKey: title,
+                                           value: bundle.localizedString(forKey: title, value:"", table: nil),
+                                           table: "ArmchairLocalizable")
+        }
+        return title
+    }
+    
+    fileprivate lazy var areYouHappyMessage: String = self.defaultAreYouHappyMessage()
+    fileprivate func defaultAreYouHappyMessage() -> String {
+        var template = "Are you happy with %@"
+        // Check for a localized version of the default title
+        if let bundle = self.bundle() {
+            template = bundle.localizedString(forKey: template,
+                                              value: bundle.localizedString(forKey: template, value:"", table: nil),
+                                              table: "ArmchairLocalizable")
+        }
+        return template.replacingOccurrences(of: "%@", with: "\(self.appName)", options: NSString.CompareOptions(rawValue: 0), range: nil)
+    }
+    
+    fileprivate lazy var areYouHappyYesButtonTitle: String = self.defaultAreYouHappyYesButtonTitle()
+    fileprivate func defaultAreYouHappyYesButtonTitle() -> String {
+        var title = "Yes"
+        // Check for a localized version of the default title
+        if let bundle = self.bundle() {
+            title = bundle.localizedString(forKey: title,
+                                           value: bundle.localizedString(forKey: title, value:"", table: nil),
+                                           table: "ArmchairLocalizable")
+        }
+        return title
+    }
+    
+    fileprivate lazy var areYouHappyNoButtonTitle: String = self.defaultAreYouHappyNoButtonTitle()
+    fileprivate func defaultAreYouHappyNoButtonTitle() -> String {
+        var title = "No"
+        // Check for a localized version of the default title
+        if let bundle = self.bundle() {
+            title = bundle.localizedString(forKey: title,
+                                           value: bundle.localizedString(forKey: title, value:"", table: nil),
+                                           table: "ArmchairLocalizable")
+        }
+        return title
+    }
+    
+    fileprivate lazy var contactPromptTitle: String = self.defaultContactPromptTitle()
+    fileprivate func defaultContactPromptTitle() -> String {
+        var title = "Talk to Us"
+        // Check for a localized version of the default title
+        if let bundle = self.bundle() {
+            title = bundle.localizedString(forKey: title,
+                                           value: bundle.localizedString(forKey: title, value:"", table: nil),
+                                           table: "ArmchairLocalizable")
+        }
+        return title
+    }
+    
+    fileprivate lazy var contactPromptMessage: String = self.defaultContactPromptMessage()
+    fileprivate func defaultContactPromptMessage() -> String {
+        var title = "Sorry to hear that. Would you like to talk to our team about it?"
+        // Check for a localized version of the default title
+        if let bundle = self.bundle() {
+            title = bundle.localizedString(forKey: title,
+                                           value: bundle.localizedString(forKey: title, value:"", table: nil),
+                                           table: "ArmchairLocalizable")
+        }
+        return title
+    }
+
+    fileprivate lazy var contactPromptYesButtonTitle: String = self.defaultContactPromptYesButtonTitle()
+    fileprivate func defaultContactPromptYesButtonTitle() -> String {
+        var title = "Talk to us"
+        // Check for a localized version of the default title
+        if let bundle = self.bundle() {
+            title = bundle.localizedString(forKey: title,
+                                           value: bundle.localizedString(forKey: title, value:"", table: nil),
+                                           table: "ArmchairLocalizable")
+        }
+        return title
+    }
+    
+    fileprivate lazy var contactPromptNoButtonTitle: String = self.defaultContactPromptNoButtonTitle()
+    fileprivate func defaultContactPromptNoButtonTitle() -> String {
+        var title = "No, Thanks"
+        // Check for a localized version of the default title
+        if let bundle = self.bundle() {
+            title = bundle.localizedString(forKey: title,
+                                           value: bundle.localizedString(forKey: title, value:"", table: nil),
+                                           table: "ArmchairLocalizable")
+        }
+        return title
+    }
+    
     // MARK: Properties with sensible defaults
     fileprivate var daysUntilPrompt: UInt                   = 30
     fileprivate var usesUntilPrompt: UInt                   = 20
@@ -879,6 +1098,7 @@ open class Manager : ArmchairManager {
             }
         }
     }
+    fileprivate var advancedFeedbackEnabled: Bool  = false
     
     // If you aren't going to set an affiliate code yourself, please leave this as is.
     // It is my affiliate code. It is better that somebody's code is used rather than nobody's.
@@ -946,7 +1166,8 @@ open class Manager : ArmchairManager {
     var didDeclineToRateClosure: ArmchairClosure?
     var didOptToRateClosure: ArmchairClosure?
     var didOptToRemindLaterClosure: ArmchairClosure?
-    
+    var didOptToContactClosure: ArmchairClosure?
+
     var customAlertClosure: ArmchairClosureCustomAlert?
     
     #if os(iOS)
@@ -1085,7 +1306,7 @@ open class Manager : ArmchairManager {
             
             if shouldPrompt {
                 DispatchQueue.main.async {
-                    self.showRatingAlert()
+                    self.showGeneralAlert()
                 }
             }
         }
@@ -1105,14 +1326,14 @@ open class Manager : ArmchairManager {
         
         if (shouldPromptVal) {
             DispatchQueue.main.async {
-                self.showRatingAlert()
+                self.showGeneralAlert()
             }
         }
     }
     
     fileprivate func showPrompt() {
         if !appID.isEmpty && connectedToNetwork() && !userHasDeclinedToRate() && !userHasRatedCurrentVersion() {
-            showRatingAlert()
+            showGeneralAlert()
         }
     }
     
@@ -1238,7 +1459,15 @@ open class Manager : ArmchairManager {
         }
         return false
     }
-    
+
+    fileprivate func showGeneralAlert() {
+        if advancedFeedbackEnabled {
+            showAreYouHappyAlert()
+        } else {
+            showRatingAlert()
+        }
+    }
+
     fileprivate func showRatingAlert() {
         if let customClosure = customAlertClosure {
             customClosure({[weak self] in
@@ -1308,11 +1537,11 @@ open class Manager : ArmchairManager {
                 if let window = NSApplication.shared.keyWindow {
                     alert.beginSheetModal(for: window) {
                         (response: NSApplication.ModalResponse) in
-                        self.handleNSAlertResponse(response)
+                        self.handleNSAlertRateResponse(response)
                     }
                 } else {
                     let response = alert.runModal()
-                    handleNSAlertResponse(response)
+                    handleNSAlertRateResponse(response)
                 }
                 
                 if let closure = self.didDisplayAlertClosure {
@@ -1322,6 +1551,116 @@ open class Manager : ArmchairManager {
             #endif
         }
         
+    }
+    
+    fileprivate func showAreYouHappyAlert() {
+        #if os(iOS)
+        let alertView : UIAlertController = UIAlertController(title: areYouHappyTitle, message: areYouHappyMessage, preferredStyle: .alert)
+        alertView.addAction(UIAlertAction(title: areYouHappyYesButtonTitle, style: .default, handler: {
+            (alert: UIAlertAction!) in
+            self.showRatingAlert()
+        }))
+        alertView.addAction(UIAlertAction(title: areYouHappyNoButtonTitle, style: .cancel, handler: {
+            (alert: UIAlertAction!) in
+            self.showContactPromptAlert()
+        }))
+        
+        ratingAlert = alertView
+        
+        // get the top most controller (= the StoreKit Controller) and dismiss it
+        if let presentingController = UIApplication.shared.keyWindow?.rootViewController {
+            if let topController = Manager.topMostViewController(presentingController) {
+                topController.present(alertView, animated: usesAnimation) { // [weak self] in
+                    //if let closure = self?.didDisplayAlertClosure {
+                    //    closure()
+                    //}
+                    print("presentViewController() completed")
+                }
+            }
+            // note that tint color has to be set after the controller is presented in order to take effect (last checked in iOS 9.3)
+            alertView.view.tintColor = tintColor
+        }
+        
+        #elseif os(OSX)
+        
+        let alert: NSAlert = NSAlert()
+        alert.messageText = areYouHappyTitle
+        alert.informativeText = areYouHappyMessage
+        alert.addButton(withTitle: areYouHappyYesButtonTitle)
+        alert.addButton(withTitle: areYouHappyNoButtonTitle)
+        ratingAlert = alert
+        
+        if let window = NSApplication.shared.keyWindow {
+            alert.beginSheetModal(for: window) {
+                (response: NSApplication.ModalResponse) in
+                self.handleNSAlertAreYouHappyResponse(response)
+            }
+        } else {
+            let response = alert.runModal()
+            handleNSAlertAreYouHappyResponse(response)
+        }
+        
+        if let closure = self.didDisplayAlertClosure {
+            closure()
+        }
+        #else
+        #endif
+    }
+
+    fileprivate func showContactPromptAlert() {
+        #if os(iOS)
+        let alertView : UIAlertController = UIAlertController(title: contactPromptTitle, message: contactPromptMessage, preferredStyle: .alert)
+        alertView.addAction(UIAlertAction(title: contactPromptYesButtonTitle, style: .default, handler: {
+            (alert: UIAlertAction!) in
+            if let closure = self.didOptToContactClosure {
+                closure()
+            }
+        }))
+        alertView.addAction(UIAlertAction(title: contactPromptNoButtonTitle, style: .cancel, handler: {
+            (alert: UIAlertAction!) in
+            self.dontRate()
+        }))
+        
+        ratingAlert = alertView
+        
+        // get the top most controller (= the StoreKit Controller) and dismiss it
+        if let presentingController = UIApplication.shared.keyWindow?.rootViewController {
+            if let topController = Manager.topMostViewController(presentingController) {
+                topController.present(alertView, animated: usesAnimation) { // [weak self] in
+                    //if let closure = self?.didDisplayAlertClosure {
+                    //    closure()
+                    //}
+                    print("presentViewController() completed")
+                }
+            }
+            // note that tint color has to be set after the controller is presented in order to take effect (last checked in iOS 9.3)
+            alertView.view.tintColor = tintColor
+        }
+        
+        #elseif os(OSX)
+        
+        let alert: NSAlert = NSAlert()
+        alert.messageText = contactPromptTitle
+        alert.informativeText = contactPromptMessage
+        alert.addButton(withTitle: contactPromptYesButtonTitle)
+        alert.addButton(withTitle: contactPromptNoButtonTitle)
+        ratingAlert = alert
+        
+        if let window = NSApplication.shared.keyWindow {
+            alert.beginSheetModal(for: window) {
+                (response: NSApplication.ModalResponse) in
+                self.handleNSAlertContactPromptResponse(response)
+            }
+        } else {
+            let response = alert.runModal()
+            handleNSAlertContactPromptResponse(response)
+        }
+        
+        if let closure = self.didDisplayAlertClosure {
+            closure()
+        }
+        #else
+        #endif
     }
     
     // MARK: -
@@ -1357,26 +1696,58 @@ open class Manager : ArmchairManager {
     
     #elseif os(OSX)
     
-    private func handleNSAlertResponse(_ response: NSApplication.ModalResponse) {
-    switch (response) {
-    case  .alertFirstButtonReturn:
-        // they want to rate it
-        _rateApp()
-    case  .alertSecondButtonReturn:
-        // remind them later or cancel
-        if showsRemindButton() {
-            remindMeLater()
-        } else {
+    private func handleNSAlertRateResponse(_ response: NSApplication.ModalResponse) {
+        switch (response) {
+        case  .alertFirstButtonReturn:
+            // they want to rate it
+            _rateApp()
+        case  .alertSecondButtonReturn:
+            // remind them later or cancel
+            if showsRemindButton() {
+                remindMeLater()
+            } else {
+                dontRate()
+            }
+        case .alertThirdButtonReturn:
+            // they don't want to rate it
             dontRate()
-        }
-    case .alertThirdButtonReturn:
-        // they don't want to rate it
-        dontRate()
-    default:
-        return
+        default:
+            return
         }
     }
     
+    private func handleNSAlertAreYouHappyResponse(_ response: NSApplication.ModalResponse) {
+        switch (response) {
+        case  .alertFirstButtonReturn:
+            // they are happy
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.showRatingAlert()
+            }
+        case  .alertSecondButtonReturn:
+            // they are not happy
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.showContactPromptAlert()
+            }
+        default:
+            return
+        }
+    }
+    
+    private func handleNSAlertContactPromptResponse(_ response: NSApplication.ModalResponse) {
+        switch (response) {
+        case  .alertFirstButtonReturn:
+            // they want to contact us
+            if let closure = didOptToContactClosure {
+                closure()
+            }
+        case  .alertSecondButtonReturn:
+            // they are unhappy and don't want to contact us
+            dontRate()
+        default:
+            return
+        }
+    }
+
     #else
     #endif
     
@@ -1723,11 +2094,11 @@ open class Manager : ArmchairManager {
     private static func getRootViewController() -> UIViewController? {
         if var window = UIApplication.shared.keyWindow {
             
-            if window.windowLevel != .normal {
+            if window.windowLevel != UIWindowLevelNormal {
                 let windows: NSArray = UIApplication.shared.windows as NSArray
                 for candidateWindow in windows {
                     if let candidateWindow = candidateWindow as? UIWindow {
-                        if candidateWindow.windowLevel == .normal {
+                        if candidateWindow.windowLevel == UIWindowLevelNormal {
                             window = candidateWindow
                             break
                         }
@@ -1833,9 +2204,9 @@ open class Manager : ArmchairManager {
     
     fileprivate func setupNotifications() {
         #if os(iOS)
-        NotificationCenter.default.addObserver(self, selector: #selector(Manager.appWillResignActive(_:)), name: UIApplication.willResignActiveNotification,    object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(Manager.applicationDidFinishLaunching(_:)),  name: UIApplication.didFinishLaunchingNotification,  object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(Manager.applicationWillEnterForeground(_:)), name: UIApplication.willEnterForegroundNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(Manager.appWillResignActive(_:)), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(Manager.applicationDidFinishLaunching(_:)), name: NSNotification.Name.UIApplicationDidFinishLaunching, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(Manager.applicationWillEnterForeground(_:)), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
         #elseif os(OSX)
             NotificationCenter.default.addObserver(self, selector: #selector(Manager.appWillResignActive(_:)), name: NSApplication.willResignActiveNotification, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(Manager.applicationDidFinishLaunching(_:)), name: NSApplication.didFinishLaunchingNotification, object: nil)
