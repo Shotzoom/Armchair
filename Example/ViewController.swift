@@ -108,12 +108,13 @@ extension ViewController {
     
         // True means that advanced popup with "Are You Happy?" promp will popup
         Armchair.advancedFeedbackEnabled(true)
-        
+
         // You should call it with a block to circumvent any of Armchair should rate logic.
         Armchair.onDidOptToContact({
+            // i.e. open email here
             print("[Example App] User wants to contact support")
         })
-
+        
         // Here can be overrides the default value for advanced feedback popups
         // Armchair.areYouHappyTitle("Some title here")
         // Armchair.areYouHappyMessage("Some title here")

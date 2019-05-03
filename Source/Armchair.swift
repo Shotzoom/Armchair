@@ -144,7 +144,7 @@ public func areYouHappyTitle(_ areYouHappyTitle: String) {
 /*
  * Get/Set the message to use on the "Are You Happy" prompt.
  * Default value is a localized
- *  "Are you happy with <appName>"
+ *  "Are you happy with <appName>?"
  */
 public func areYouHappyMessage() -> String {
     return Manager.defaultManager.areYouHappyMessage
@@ -200,7 +200,7 @@ public func contactPromptMessage(_ contactPromptMessage: String) {
 
 /*
  * Get/Set the confirm button title to use on the contact prompt.
- * Default value is a localized "Talk to us"
+ * Default value is a localized "Email Us"
  */
 public func contactPromptYesButtonTitle() -> String {
     return Manager.defaultManager.contactPromptYesButtonTitle
@@ -1001,7 +1001,7 @@ open class Manager : ArmchairManager {
     
     fileprivate lazy var areYouHappyMessage: String = self.defaultAreYouHappyMessage()
     fileprivate func defaultAreYouHappyMessage() -> String {
-        var template = "Are you happy with %@"
+        var template = "Are you happy with %@?"
         // Check for a localized version of the default title
         if let bundle = self.bundle() {
             template = bundle.localizedString(forKey: template,
@@ -1061,7 +1061,7 @@ open class Manager : ArmchairManager {
 
     fileprivate lazy var contactPromptYesButtonTitle: String = self.defaultContactPromptYesButtonTitle()
     fileprivate func defaultContactPromptYesButtonTitle() -> String {
-        var title = "Talk to us"
+        var title = "Email Us"
         // Check for a localized version of the default title
         if let bundle = self.bundle() {
             title = bundle.localizedString(forKey: title,
@@ -1570,10 +1570,10 @@ open class Manager : ArmchairManager {
         // get the top most controller (= the StoreKit Controller) and dismiss it
         if let presentingController = UIApplication.shared.keyWindow?.rootViewController {
             if let topController = Manager.topMostViewController(presentingController) {
-                topController.present(alertView, animated: usesAnimation) { // [weak self] in
-                    //if let closure = self?.didDisplayAlertClosure {
-                    //    closure()
-                    //}
+                topController.present(alertView, animated: usesAnimation) { [weak self] in
+                    if let closure = self?.didDisplayAlertClosure {
+                        closure()
+                    }
                     print("presentViewController() completed")
                 }
             }
@@ -1612,6 +1612,7 @@ open class Manager : ArmchairManager {
         let alertView : UIAlertController = UIAlertController(title: contactPromptTitle, message: contactPromptMessage, preferredStyle: .alert)
         alertView.addAction(UIAlertAction(title: contactPromptYesButtonTitle, style: .default, handler: {
             (alert: UIAlertAction!) in
+            self.dontRate()
             if let closure = self.didOptToContactClosure {
                 closure()
             }
@@ -1626,10 +1627,10 @@ open class Manager : ArmchairManager {
         // get the top most controller (= the StoreKit Controller) and dismiss it
         if let presentingController = UIApplication.shared.keyWindow?.rootViewController {
             if let topController = Manager.topMostViewController(presentingController) {
-                topController.present(alertView, animated: usesAnimation) { // [weak self] in
-                    //if let closure = self?.didDisplayAlertClosure {
-                    //    closure()
-                    //}
+                topController.present(alertView, animated: usesAnimation) { [weak self] in
+                    if let closure = self?.didDisplayAlertClosure {
+                        closure()
+                    }
                     print("presentViewController() completed")
                 }
             }
@@ -1737,6 +1738,7 @@ open class Manager : ArmchairManager {
         switch (response) {
         case  .alertFirstButtonReturn:
             // they want to contact us
+            dontRate()
             if let closure = didOptToContactClosure {
                 closure()
             }
