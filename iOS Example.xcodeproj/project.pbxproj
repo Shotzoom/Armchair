@@ -194,7 +194,7 @@
 					F8111E0419A951050040E7D1 = {
 						CreatedOnToolsVersion = 6.0;
 						DevelopmentTeam = 9H3S97RP4K;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -203,6 +203,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = F8111DFC19A951050040E7D1;
@@ -440,7 +441,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.armchair.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "iOS Example";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -458,7 +459,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.armchair.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "iOS Example";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
